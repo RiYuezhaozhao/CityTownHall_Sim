@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .el-table .warning-row {
+            background: oldlace;
+        }
+
+        .el-table .success-row {
+            background: #f0f9eb;
+        }
+        .el-header, .el-footer {
+            background-color: #B3C0D1;
+            color: #333;
+            text-align: center;
+            line-height: 60px;
+        }
+
+        .el-aside {
+            background-color: #D3DCE6;
+            color: #333;
+            text-align: center;
+            line-height: 200px;
+        }
+
+        .el-main {
+            background-color: #E9EEF3;
+            color: #333;
+            text-align: center;
+            line-height: 160px;
+        }
+
+        body > .el-container {
+            margin-bottom: 40px;
+        }
+
+        .el-container:nth-child(5) .el-aside,
+        .el-container:nth-child(6) .el-aside {
+            line-height: 260px;
+        }
+
+        .el-container:nth-child(7) .el-aside {
+            line-height: 320px;
+        }
+    </style>
+</head>
+<body>
+<el-container>
+    <el-container>
+        <el-aside width="200px">
+            <el-menu
+                    default-active="2"
+                    class="el-menu-vertical-demo"
+                    @open="handleOpen"
+                    @close="handleClose"
+                    background-color="#545c64"
+                    text-color="#fff"
+                    active-text-color="#ffd04b">
+                <el-submenu index="1">
+                    <template slot="title">
+                        <i class="el-icon-location"></i>
+                        <span>导航一</span>
+                    </template>
+                    <el-menu-item-group>
+                        <template slot="title">分组一</template>
+                        <el-menu-item index="1-1">选项1</el-menu-item>
+                        <el-menu-item index="1-2">选项2</el-menu-item>
+                    </el-menu-item-group>
+                    <el-menu-item-group title="分组2">
+                        <el-menu-item index="1-3">选项3</el-menu-item>
+                    </el-menu-item-group>
+                    <el-submenu index="1-4">
+                        <template slot="title">选项4</template>
+                        <el-menu-item index="1-4-1">选项1</el-menu-item>
+                    </el-submenu>
+                </el-submenu>
+                <el-menu-item index="2">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">导航二</span>
+                </el-menu-item>
+                <el-menu-item index="3" disabled>
+                    <i class="el-icon-document"></i>
+                    <span slot="title">导航三</span>
+                </el-menu-item>
+                <el-menu-item index="4">
+                    <i class="el-icon-setting"></i>
+                    <span slot="title">导航四</span>
+                </el-menu-item>
+        <div id="app">
+            <div id="dy">
+                <div id="form">
+                    <!--    表单-->
+                    <el-form :inline="true" :model="counter" class="demo-form-inline">
+                        <el-form-item label="status">
+                            <el-select v-model="counter.status" placeholder="status">
+                                <el-option label="star" value="1"></el-option>
+                                <el-option label="ban" value="0"></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="serviceType">
+                            <el-input v-model="counter.serviceType" placeholder="serviceType"></el-input>
+                        </el-form-item>
+                        <el-form-item label="employeeName">
+                            <el-input v-model="counter.employeeName" placeholder="employeeName"></el-input>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" @click="onSubmit">submit</el-button>
+                        </el-form-item>
+                    </el-form>
+                    <el-row>
+                        <el-button type="danger" plain>批量删除</el-button>
+                        <el-button type="primary" @click="dialogVisible = true"plain>添加</el-button>
+                    </el-row>
+                </div>
+                <!--//添加-->
+                <div id="rt">
+                    <el-dialog
+                            title="添加柜台"
+                            :visible.sync="dialogVisible"
+                            width="30%">
+
+                        <el-form ref="counter" :model="counter" label-width="80px">
+                            <el-form-item
+                                    name="serviceType"
+                                    label="serviceType">
+                                <el-input v-model="counter.serviceType"></el-input>
+                            </el-form-item>
+
+                            <el-form-item
+                                    name="employeeName"
+                                    label="employeeName">
+                                <el-input v-model="counter.employeeName"></el-input>
+                            </el-form-item>
+
+                            <el-form-item
+                                    name="capacity"
+                                    label="capacity">
+                                <el-input v-model="counter.capacity"></el-input>
+                            </el-form-item>
+                            <el-form-item
+                                    name="openTime"
+                                    label="openTime">
+                                <el-input v-model="counter.openTime"></el-input>
+                            </el-form-item>
+                            <el-form-item
+                                    name="status"
+                                    label="status">
+                                <el-switch v-model="counter.status"
+                                           active-value="1"
+                                           inactive-value="0">
+                                </el-switch>
+                            </el-form-item>
+                        </el-form>
+                        <div slot="footer" class="dialog-footer">
+
+                            <el-button @click="dialogFormVisible = false">取消</el-button>
+
+                            <el-button type="primary" @click="addCounter()">确定</el-button>
+
+                        </div>
+                    </el-dialog>
+                </div>
+                <div class="add-form">
+
+                    <el-dialog title="编辑检查项" :visible.sync="editDialogFormVisible">
+
+                        <el-form ref="dataEditForm" :model="formData" :rules="rules" label-position="right" label-width="100px">
+
+                            <el-row>
+
+                                <el-col :span="12">
+
+                                    <el-form-item label="serviceType" prop="serviceType">
+
+                                        <el-input v-model="formData.serviceType"/>
+
+                                    </el-form-item>
+
+                                </el-col>
+
+                                <el-col :span="12">
+
+                                    <el-form-item label="employeeName" prop="employeeName">
+
+                                        <el-input v-model="formData.employeeName"/>
+
+                                    </el-form-item>
+
+                                </el-col>
+                                <el-col :span="12">
+
+                                    <el-form-item label="capacity" prop="capacity">
+
+                                        <el-input v-model="formData.capacity"/>
+
+                                    </el-form-item>
+
+                                </el-col>
+                                <el-col :span="12">
+
+                                    <el-form-item label="openTime" prop="openTime">
+
+                                        <el-input v-model="formData.openTime"/>
+
+                                    </el-form-item>
+
+                                </el-col><el-col :span="12">
+                                <el-form-item
+                                        name="status"
+                                        label="status">
+                                    <el-switch v-model="counter.status"
+                                               active-value="1"
+                                               inactive-value="0">
+                                    </el-switch>
+                                </el-form-item>
+                            </el-col>
+                            </el-row>
+                        </el-form>
+
+                        <div slot="footer" class="dialog-footer">
+
+                            <el-button @click="editDialogFormVisible = false">取消</el-button>
+
+                            <el-button type="primary" @click="handleEdit()">确定</el-button>
+
+                        </div>
+
+                    </el-dialog>
+
+                </div>
+                <template>
+                    <el-table
+                            :data="tableData"
+                            style="width: 100%"
+                            :row-class-name="tableRowClassName"
+                            @selection-change="handleSelectionChange">
+
+                        <el-table-column
+                                type="selection"
+                                width="55">
+                        </el-table-column>
+                        <el-table-column
+                                type="index"
+                                label="counterId"
+                                align="center"
+                                width="100"
+                                sortable>
+                        </el-table-column>
+                        <el-table-column
+                                prop="serviceType"
+                                label="serviceType"
+                                align="center">
+                        </el-table-column>
+                        <el-table-column
+                                prop="employeeName"
+                                label="employeeName"
+                                align="center">
+                        </el-table-column>
+                        <el-table-column
+                                prop="capacity"
+                                align="center"
+                                label="capacity">
+
+                        </el-table-column>
+                        <el-table-column
+                                prop="openTime"
+                                align="center"
+                                label="openTime">
+                        </el-table-column>
+                        <el-table-column
+                                prop="status"
+                                align="center"
+                                label="status">
+                        </el-table-column>
+                        <el-table-column label="operation" align="center">
+
+                            <template slot-scope="scope">
+
+                                <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
+
+                                <el-button type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
+
+                            </template>
+
+                        </el-table-column>
+                    </el-table>
+
+
+                    <!--      <el-pagination&ndash;&gt;-->
+                    <!--              @size-change="handleSizeChange"-->
+                    <!--                @current-change="handleCurrentChange"-->
+                    <!--                :current-page="currentPage"-->
+                    <!--                :page-sizes="[5, 10, 15, 20]"-->
+                    <!--                :page-size="5"-->
+                    <!--                layout="total, sizes, prev, pager, next, jumper"-->
+                    <!--                :total="40">-->
+                    <!--        </el-pagination>-->
+                </template>
+            </div>
+        </div>
+    </el-main>
+            </el-menu>
+        </el-aside>
+        </el-aside>
+    </el-container>
+</el-container>
+
+<script src="js/vue.js"></script>
+<script src="plugins/element-ui/lib/index.js"></script>
+<link rel="stylesheet" href="plugins/element-ui/lib/theme-chalk/index.css">
+<script src="js/axios-0.18.0.js"></script>
+<script src="plugins/element-ui/lib/umd/locale/en.js"></script>
+<script>
+    new Vue({
+        el:"#app",
+        mounted(){
+
+            this.selectAll();
+
+        },
+
+        handleOpen(key, keyPath) {
+            console.log(key, keyPath);
+        },
+        handleClose(key, keyPath) {
+            console.log(key, keyPath);
+        },
+
+
+        methods: {
+            selectAll(){
+                axios.get("/main")
+                    .then(response => {
+                        if (response.data.code === 20041) {
+                            this.tableData = response.data.data;
+                        } else {
+                            console.error('Error fetching data:', response.data.msg);
+                        }
+                    })
+
+            },
+            // tableRowClassName({row, rowIndex}) {
+            //     if (rowIndex === 1) {
+            //         return 'warning-row';
+            //     } else if (rowIndex === 3) {
+            //         return 'success-row';
+            //     }
+            //     return '';
+            // },
+            // handleSelectionChange(val) {
+            //     this.multipleSelection = val;
+            //     console.log(this.multipleSelection)
+            // },
+            // //搜索
+            onSubmit() {
+                console.log(this.counter);
+            },
+            addCounter(){
+                axios.post("http://localhost/main/sava", this.counter)
+                    .then(resp => {
+                        if (resp.data.code === 20011) {
+                            this.dialogVisible = false;
+                            this.selectAll();
+                            this.$message({
+                                message: '恭喜你，添加成功',
+                                type: 'success'
+                            });
+                        } else {
+                            console.error('Error adding counter:', response.data.msg);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('There was an error in the request:', error);
+                    });
+            },
+            handleUpdate(row) {
+                axios.get("http://localhost/main/getByCounterId/"+row.counterId).then((res)=>{
+
+                    if(res.data.code === 20041){
+                        this.formData = res.data.data;
+                        this.editDialogFormVisible = true;
+                    }else{
+                        this.$message.error(res.data.msg);
+                    }
+                });
+            },
+
+            //编辑
+            handleEdit() {
+                //发送ajax请求
+                axios.put("http://localhost/main/update",this.formData).then((res)=>{
+
+                    if(res.data.code === 20021){
+                        this.editDialogFormVisible = false;
+                        this.$message.success("修改成功");
+                    }else if(res.data.code === 20020){
+                        this.$message.error("修改失败");
+                    }else{
+                        this.$message.error(res.data.msg);
+                    }
+                }).finally(()=>{
+                    this.selectAll();
+                });
+            },
+            handleDelete(row) {
+                this.$confirm("此操作永久删除当前数据，是否继续？","提示",{
+                    type: 'info'
+                }).then(() => {
+                    axios.delete(" http://localhost/main/delete/" + row.counterId)
+                        .then((res) => {
+                            if (res.data.code == 20031) {
+                                this.selectAll();
+                                this.$message({
+                                    message: '恭喜你，删除成功',
+                                    type: 'success'
+                                });
+                            } else {
+                                this.$message({
+                                    message: '删除失败',
+                                    type: 'error'
+                                });
+                            }
+                        });
+                }).catch(() => {
+                    this.$message.info("取消删除操作");
+                });
+            },
+
+            handleSizeChange(val) {
+                console.log(`每页 ${val} 条`);
+            },
+            handleCurrentChange(val) {
+                console.log(`当前页: ${val}`);
+            },
+            handleOpen(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleClose(key, keyPath) {
+                console.log(key, keyPath);
+            },
+        },
+        data() {
+            return {
+                dialogVisible:false,
+
+                editDialogFormVisible:false,
+
+                currentPage: 1,
+
+                formData:{
+                    status:'',
+                    serviceType:'',
+                    employeeName:'',
+                    counterId:'',
+                    capacity:'',
+                    openTime:''
+                },
+
+                counter: {
+                    status:'',
+                    serviceType:'',
+                    employeeName:'',
+                    counterId:'',
+                    capacity:'',
+                    openTime:''
+                },
+                //复选
+                multipleSelection: [],
+
+                //添加数据
+
+                tableData: [{
+                    serviceType: '',
+                    employeeName: '',
+                    capacity: '',
+                    openTime: '',
+                    status: ''
+                }]
+            }
+        },
+
+    })
+</script>
+</body>
+</html>
