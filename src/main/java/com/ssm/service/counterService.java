@@ -22,5 +22,8 @@ public interface counterService {
 
     public List<counter> getAll();
 
-    public boolean deleteByIds(int[] counterIds);
+    public boolean deleteByIds(String[] counterId);
+
+
+    public  List<counter> selectByCondition();
 }

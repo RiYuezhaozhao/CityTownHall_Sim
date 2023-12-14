@@ -14,6 +14,7 @@ public class CounterController {
     @Autowired
     private counterService counterService;
 
+    //查询所有
     @GetMapping
     public Result getAll (){
         List<counter> counterList =counterService.getAll();
@@ -51,9 +52,18 @@ public class CounterController {
         return new Result(code,counter,msg);
     }
     //批量删除
-    @DeleteMapping("/deleteByIds/")
-    public Result deleteByIds(@RequestBody int[] counterIds) {
-        boolean flag=counterService.deleteByIds(counterIds);
+    @DeleteMapping("deleteByIds/")
+    public Result deleteByIds(@RequestBody String[] counterId) {
+        boolean flag=counterService.deleteByIds(counterId);
         return new Result(flag ? Code.DELETE_OK : Code.DELETE_ERR, flag);
+    }
+
+    //条件查询
+    @GetMapping("select/")
+    public Result selectByCondition (){
+        List<counter> counterList =counterService.selectByCondition();
+        Integer code=counterList !=null ? Code.GET_OK :Code.GET_ERR;
+        String msg=counterList !=null ?"":"数据查询失败";
+        return new Result(code,counterList,msg);
     }
 }

@@ -7,7 +7,7 @@ public class counter {
   private String serviceType;
   private String employeeName;
   private int capacity;
-  private Time openTime;
+  private String openTime;
   private Integer status;
 
     public int getCounterId() {
@@ -42,11 +42,11 @@ public class counter {
         this.capacity = capacity;
     }
 
-    public Time getOpenTime() {
+    public String getOpenTime() {
         return openTime;
     }
 
-    public void setOpenTime(Time openTime) {
+    public void setOpenTime(String openTime) {
         this.openTime = openTime;
     }
 

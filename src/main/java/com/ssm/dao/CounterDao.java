@@ -26,10 +26,18 @@ public interface CounterDao {
     @Delete({
             "<script>",
             "delete from counter where counterId IN",
-            "<foreach item='counterId' collection='counterIds' open='(' separator=',' close=')'>",
-            "#{counterIds}",
+            "<foreach item='counterId' collection='counterId' open='(' separator=',' close=')'>",
+            "#{counterId}",
             "</foreach>",
             "</script>"
     })
-    public boolean deleteByIds(@Param("counterIds") int[] counterIds);
+    public  boolean deleteByIds(@Param("counterId") String[] counterId);
+
+
+
+//条件查询
+    @Select("SELECT * FROM counter WHERE status LIKE #{status} AND " +
+            "serviceType LIKE #{serviceType} AND employeeName LIKE #{employeeName}")
+    public List<counter> selectByCondition();
+
 }

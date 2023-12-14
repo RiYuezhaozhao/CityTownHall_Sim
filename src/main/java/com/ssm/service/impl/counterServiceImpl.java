@@ -40,7 +40,12 @@ public class counterServiceImpl implements counterService {
     }
 
 
-    public boolean deleteByIds(int[] counterIds) {
-        return counterDao.deleteByIds(counterIds);
+    public boolean deleteByIds(String[] counterId) {
+        return counterDao.deleteByIds(counterId);
+    }
+
+
+    public List<counter> selectByCondition() {
+        return counterDao.selectByCondition();
     }
 }
