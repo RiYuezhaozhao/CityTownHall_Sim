@@ -23,6 +23,7 @@ public interface CounterDao {
     @Select("select * from counter")
     public List<counter> getAll();
 
+    //批量删除
     @Delete({
             "<script>",
             "delete from counter where counterId IN",
@@ -33,9 +34,7 @@ public interface CounterDao {
     })
     public  boolean deleteByIds(@Param("counterId") String[] counterId);
 
-
-
-//条件查询
+    //条件查询
     @Select("SELECT * FROM counter WHERE status LIKE #{status} AND " +
             "serviceType LIKE #{serviceType} AND employeeName LIKE #{employeeName}")
     public List<counter> selectByCondition();
