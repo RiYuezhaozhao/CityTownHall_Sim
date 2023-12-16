@@ -1,3 +1,4 @@
+com\ssm\strategy\peopleStrategy.class
 com\ssm\dao\CounterDao.class
 com\ssm\service\impl\counterServiceImpl.class
 com\ssm\config\JdbcConfig.class

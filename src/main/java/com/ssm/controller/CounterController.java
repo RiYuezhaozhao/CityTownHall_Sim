@@ -66,4 +66,14 @@ public class CounterController {
         String msg=counterList !=null ?"":"数据查询失败";
         return new Result(code,counterList,msg);
     }
+
+    //按状态查询
+    @GetMapping("selectCounter/")
+    public Result selectCounter(){
+        int status = 1;
+        List<counter> counterList =counterService.selectCounter(status);
+        Integer code=counterList !=null ? Code.GET_OK :Code.GET_ERR;
+        String msg=counterList !=null ?"":"数据查询失败";
+        return new Result(code,counterList,msg);
+    }
 }

@@ -2,6 +2,7 @@ package com.ssm.dao;
 
 import com.ssm.domain.counter;
 import org.apache.ibatis.annotations.*;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -39,4 +40,7 @@ public interface CounterDao {
             "serviceType LIKE #{serviceType} AND employeeName LIKE #{employeeName}")
     public List<counter> selectByCondition();
 
+    //按状态查询
+    @Select("select * from counter where status=#{status}")
+    public List<counter> selectCounter(@Param("status") int status);
 }

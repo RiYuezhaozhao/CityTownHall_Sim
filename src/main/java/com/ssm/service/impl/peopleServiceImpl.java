@@ -18,7 +18,6 @@ public class peopleServiceImpl implements peopleService {
     public List<people> peopleRando(int numberPeople) {
         return null;
     }
-
     @Override
     public List<people> randomPeople(int numberPeople) {
         List<people> people = new ArrayList<>();

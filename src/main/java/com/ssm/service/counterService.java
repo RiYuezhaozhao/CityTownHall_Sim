@@ -26,4 +26,7 @@ public interface counterService {
 
 
     public  List<counter> selectByCondition();
+
+    public List<counter> selectCounter(int status);
+
 }

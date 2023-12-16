@@ -8,7 +8,7 @@ public class counter {
   private String employeeName;
   private int capacity;
   private String openTime;
-  private Integer status;
+  private int status;
 
     public int getCounterId() {
         return counterId;
@@ -50,11 +50,11 @@ public class counter {
         this.openTime = openTime;
     }
 
-    public Integer getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

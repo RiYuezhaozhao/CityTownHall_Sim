@@ -48,4 +48,8 @@ public class counterServiceImpl implements counterService {
     public List<counter> selectByCondition() {
         return counterDao.selectByCondition();
     }
+
+    public List<counter> selectCounter(int status) {
+        return counterDao.selectCounter(status);
+    }
 }
