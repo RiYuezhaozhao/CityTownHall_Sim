@@ -1,9 +1,13 @@
+com\ssm\service\impl\managerServiceImpl.class
 com\ssm\strategy\peopleStrategy.class
 com\ssm\dao\CounterDao.class
 com\ssm\service\impl\counterServiceImpl.class
 com\ssm\config\JdbcConfig.class
+com\ssm\controller\managerController.class
 com\ssm\domain\counter.class
 com\ssm\config\SpringMvcConfig.class
+com\ssm\dao\managerDao.class
+com\ssm\domain\manager.class
 com\ssm\service\counterService.class
 com\ssm\config\SpringConfig.class
 com\ssm\config\ServletConfig.class
@@ -11,6 +15,7 @@ com\ssm\domain\people.class
 com\ssm\service\peopleService.class
 com\ssm\config\SpringMvcSupport.class
 com\ssm\controller\Result.class
+com\ssm\service\managerService.class
 com\ssm\controller\queueController.class
 com\ssm\controller\CounterController.class
 com\ssm\service\impl\peopleServiceImpl.class
