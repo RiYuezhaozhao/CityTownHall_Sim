@@ -10,16 +10,6 @@ public class counter {
   private String openTime;
   private int status;
 
-
-    public counter(int counterId, String serviceType, String employeeName, int capacity, String openTime, int status) {
-        this.counterId = counterId;
-        this.serviceType = serviceType;
-        this.employeeName = employeeName;
-        this.capacity = capacity;
-        this.openTime = openTime;
-        this.status = status;
-    }
-
     public int getCounterId() {
         return counterId;
     }

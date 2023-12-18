@@ -57,7 +57,6 @@ public class CounterController {
         boolean flag=counterService.deleteByIds(counterId);
         return new Result(flag ? Code.DELETE_OK : Code.DELETE_ERR, flag);
     }
-
     //条件查询
     @GetMapping("select/")
     public Result selectByCondition (){
